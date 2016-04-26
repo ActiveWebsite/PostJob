@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head lang="en">
+	<title th:text="#{title}">Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="#{jobForm}">HTTP Job Form</h3>
+		<form action="#" th:action="@{/job/save/http}" th:object="${job}" method="post">
+			<p><span th:text="#{id}">Id:</span> <input type="text" th:field="*{id}" /></p>
+			<p><span th:text="#{name}">Name:</span> <input type="text" th:field="*{name}" /></p>
+			<p><span th:text="#{jobRunDescriptionTemplate}">Template:</span> <input type="text" th:field="*{jobRunDescriptionTemplate}" /></p>
+			<p><span th:text="#{url}">URL:</span> <input type="text" th:field="*{url}" /></p>
+			<p>
+				<input type="submit" th:value="#{save}" />
+				<input type="reset" th:value="#{reset}" />
+			</p>
+		</form>
+		<div th:replace="listenerManager::listenerManager(${job})"></div>
+	</div>
+</body>
+</html>

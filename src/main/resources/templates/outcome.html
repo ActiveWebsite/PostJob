@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head lang="en">
+	<title th:text="#{title}">Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="#{outcomes}">Outcome</h3>
+		<p th:text="${{outcome}}">Outcome</p>
+		<p><span th:text="#{outcome}">Outcome</span>: <span th:text="${outcome.outcome}">Outcome</span></p>
+		<p><span th:text="#{rawCode}">Raw Code</span>: <span th:text="${outcome.rawReturnCode}">Code</span></p>
+		<p><span th:text="#{rawOutput}">Raw Output</span>: <p th:text="${outcome.rawOutput}">Output</p></p>
+	</div>
+</body>
+</html>

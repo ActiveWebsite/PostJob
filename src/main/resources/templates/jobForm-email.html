@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head lang="en">
+	<title th:text="#{title}">Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="#{jobForm}">Email Job Form</h3>
+		<form action="#" th:action="@{/job/save/email}" th:object="${job}" method="post">
+			<p><span th:text="#{id}">Id</span>: <input type="text" th:field="*{id}" /></p>
+			<p><span th:text="#{name}">Name</span>: <input type="text" th:field="*{name}" /></p>
+			<p><span th:text="#{jobRunDescriptionTemplate}">Template:</span> <input type="text" th:field="*{jobRunDescriptionTemplate}" /></p>
+			<p><span th:text="#{toAddress}">To</span>: <input type="text" th:field="*{toAddress}" /></p>
+			<p><span th:text="#{fromAddress}">From</span>: <input type="text" th:field="*{fromAddress}" /></p>
+			<p><span th:text="#{subject}">Subject</span>: <input type="text" th:field="*{subject}" /></p>
+			<p><span th:text="#{bodyTemplatePath}">Template</span>: <input type="text" th:field="*{bodyTemplatePath}" /></p>
+			<p>
+				<input type="submit" th:value="#{save}" />
+				<input type="reset" th:value="#{reset}" />
+			</p>
+		</form>
+		<div th:replace="listenerManager::listenerManager(${job})"></div>
+	</div>
+</body>
+</html>

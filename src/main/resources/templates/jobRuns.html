@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head lang="en">
+	<title th:text="#{title}">Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<style type="text/css">
+		.Error{color: red;}
+	</style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="#{jobRuns}">Jobs Runs</h3>
+		<ul class="list-group">
+			<li th:each="run : ${runs}" class="list-group-item">
+				<span th:text="${run.getName()}">Job Name</span>
+				<span th:text="${#strings.toString(run.scheduledTimestamp.getTime())}">Scheduled Time</span>
+				<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" th:title="${#strings.toString(run.arguments)}" th:text="#{arguments}">Arguments</button>
+				<a
+					th:href="@{/job/cancel/{jobRunId}(jobRunId=${run.id})}" 
+					th:if="${#lists.isEmpty(outcomesForRun.get(run.id)) and run.isEnabled()}" 
+					th:text="#{cancel}">Cancel</a>
+				<span
+					th:if="${not run.isEnabled()}" 
+					th:text="#{cancelled}"
+					class="label label-warning">Cancelled</span>
+				<a 
+					th:href="@{/job/trigger-jobrun/{jobRunId}(jobRunId=${run.id})}"
+					th:text="#{triggerJobRun}">Trigger Job Run</a>
+				<ul class="list-group">
+					<li th:each="outcome : ${outcomesForRun.get(run.id)}" class="list-group-item">
+						<span th:text="${#strings.toString(outcome.startTimestamp.getTime())}">Start Time</span>
+						<span><span th:text="${outcome.getRuntimeInMilliseconds()}">Runtime</span> ms.</span>
+						<span th:switch="${#strings.toString(outcome.outcome)}">
+							<span th:case="Success" class="label label-success" th:text="#{success}"></span>
+							<span th:case="Error" class="label label-danger" th:text="#{error}"></span>
+							<span th:case="Disabled" class="label label-warning" th:text="#{disabled}"></span>
+							<span th:case="*" class="label label-info" th:text="#{unknown}"></span>
+						</span>
+						<a th:href="@{/job/outcome/{outcomeId}(outcomeId=${outcome.id})}" th:text="#{moreInfo}">More Info</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<nav>
+			<ul class="pager">
+				<li class="previous" th:classappend="${pageNumber} == 0? 'disabled'">
+					<a th:href="@{?pageNumber={pageNum}(pageNum=${pageNumber}-1)}">
+						<span aria-hidden="true">&larr;</span> Newer
+					</a>
+				</li>
+				<li class="next">
+					<a th:href="@{?pageNumber={pageNum}(pageNum=${pageNumber}+1)}">
+						Older <span aria-hidden="true">&rarr;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</body>
+</html>

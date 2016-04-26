@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head lang="en">
+	<title th:text="#{title}">Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3 th:text="#{jobs}">Jobs</h3>
+		<ul class="list-group">
+			<li th:each="job : ${jobs}" class="list-group-item">
+				<span th:text="${job.name}">Job Name</span>
+				<a th:href="@{/job/edit/{id}(id=${job.id})}" th:text="#{edit}">Edit</a>
+				<a th:href="@{/job/pastRuns/{id}(id=${job.id})}" th:text="#{pastRuns}">Past Runs</a>
+				<a th:href="@{/job/execute/{id}(id=${job.id})}" th:text="#{execute}">Execute</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

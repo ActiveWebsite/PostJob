@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<title th:text="#{title}">Title</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<div>
+		<h3 th:text="#{outcomes}">Outcome</h3>
+		<p th:text="${jobName}">Job Name</p>
+		<p th:text="${scheduledTime}">Scheduled Time</p>
+		<p><span th:text="#{outcome}">Outcome</span>: <span th:text="${outcome}">Outcome</span></p>
+		<p><span th:text="#{rawCode}">Raw Code</span>: <span th:text="${outcomeCode}">Code</span></p>
+		<p><span th:text="#{rawOutput}">Raw Output</span>: <p th:utext="${outcomeOutput}">Output</p></p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+	<body>
+		<div class="row" th:fragment="listenerManager(job)">
+			<div class="col-lg-12">
+				<h4 th:text="#{eventListenerManager}">Event Listener Manager</h4>
+				<form th:action="@{/job/addListener/{jobId}(jobId=${job.id})}">
+					<select name="listenerType">
+						<option value="OnStart">OnStart</option>
+						<option value="OnFinish">OnFinish</option>
+						<option value="OnSuccess">OnSuccess</option>
+						<option value="OnFailure">OnFailure</option>
+					</select>
+					<input name="listenerJobId" />
+					<input type="submit" th:value="#{addListener}" />
+				</form>
+				<ul class="list-group">
+					<li th:each="listener : ${job.listeners}" class="list-group-item">
+						<span th:text="${listener.eventJob.name}">Job Name</span> - 
+						<span th:text="${listener.jobEventType}">Type</span>
+						<a th:href="@{/job/deleteListener/{jobListenerId}(jobListenerId=${listener.id})}" th:text="#{delete}">Delete</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
